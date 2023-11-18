@@ -7,7 +7,7 @@ width, height = 700, 500
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Cyprian's Arkanoid")
 
-paddle = Paddle(screen,300,450, 40, 10)
+paddle = Paddle(screen,300,450, 70, 10)
 paddle_speed = 5
 clock = pygame.time.Clock()
 
