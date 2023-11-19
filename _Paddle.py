@@ -15,6 +15,6 @@ class Paddle():
 
     def move(self, keys):
         if keys[pygame.K_RIGHT]:
-            self.pos_x = min(700 - self.width, self.pos_x + 5)
+            self.pos_x = min(700 - self.width, self.pos_x + 8)
         elif keys[pygame.K_LEFT]:
-            self.pos_x = max(0, self.pos_x - 5)
+            self.pos_x = max(0, self.pos_x - 8)

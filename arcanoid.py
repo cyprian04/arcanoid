@@ -10,13 +10,21 @@ screen = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
 
-paddle = Paddle(screen,300,450, 70, 10)
+paddle = Paddle(screen,250,450, 70, 10)
 ball = Ball(screen, 350,250, 8, 5, 5)
 
 bricks = []
 for x in range(6):
     for y in range(3): 
         bricks.append(Brick(screen, 90 * (x+1), 50* (y+1), 50, 20))
+
+lives = []
+radius = 8
+gap = 10
+for x in range(3):
+    xpos = window_width - (x + 1) * (radius * 2 + gap)
+    ypos = window_height - radius - gap
+    lives.append(Ball(screen, xpos, ypos, radius, 0,0, (255,0,0)))
 
 unbreakable_bricks = []
 for x in range(6): unbreakable_bricks.append(Brick(screen, 90 * (x+1), 200, 50, 20, (100,100,100)))
@@ -39,6 +47,7 @@ while True:
 
     paddle.draw()
     ball.draw()
+    for live in lives: live.draw()
     for brick in bricks: brick.draw()
     for u_brick in unbreakable_bricks: u_brick.draw()
 

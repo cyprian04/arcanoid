@@ -1,12 +1,12 @@
 import pygame
 
 class Ball():
-    def __init__(self, screen, pos_x, pos_y, radius, vel_x, vel_y):
+    def __init__(self, screen, pos_x, pos_y, radius, vel_x=0, vel_y=0, color=(50,100,250)):
         self.screen = screen
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.radius = radius
-        self.ball_color = (200,0,100)
+        self.ball_color = color
         self.vel_x = vel_x
         self.vel_y = vel_y
         self.draw()
