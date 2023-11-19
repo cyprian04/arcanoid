@@ -19,17 +19,12 @@ class Ball():
         self.pos_x += x_vel
         self.pos_y += y_vel
     
-    def check_collision(self):
 
-        if self.pos_x - self.radius < 0:
-            self.vel_x = -self.vel_x
-        elif self.pos_x + self.radius > 700:
+    def check_collision(self, width, height):
+        if self.pos_x - self.radius < 0 or self.pos_x + self.radius > width:
             self.vel_x = -self.vel_x
 
-        # Check top and bottom walls
-        if self.pos_y - self.radius < 0:
-            self.vel_y = -self.vel_y
-        elif self.pos_y + self.radius > 500:
+        if self.pos_y - self.radius < 0 or self.pos_y + self.radius > height:
             self.vel_y = -self.vel_y
 
         self.move(self.vel_x, self.vel_y)

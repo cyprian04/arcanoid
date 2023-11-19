@@ -31,7 +31,7 @@ while True:
 
     keys = pygame.key.get_pressed()
     paddle_movement(keys)
-    ball.check_collision()
+    ball.check_collision(700, 500) # for screen walls
 
     paddle.draw()
     ball.draw()
