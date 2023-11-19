@@ -8,3 +8,6 @@ class Brick():
         self.height = height
         self.color = color
         self.is_visible = True
+    
+    def draw(self):
+        pygame.draw.rect(self.screen, self.color, (self.pos_x, self.pos_y, self.width, self.height))
