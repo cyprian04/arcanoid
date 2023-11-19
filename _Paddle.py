@@ -14,7 +14,6 @@ class Paddle():
         pygame.draw.rect(self.screen, self.paddle_color, (self.pos_x, self.pos_y, self.width, self.height))
 
     def move(self, keys):
-        # Check if the left or right key is pressed
         if keys[pygame.K_RIGHT]:
             self.pos_x = min(700 - self.width, self.pos_x + 5)
         elif keys[pygame.K_LEFT]:
