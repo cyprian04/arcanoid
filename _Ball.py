@@ -11,3 +11,6 @@ class Ball():
 
     def draw(self):
         pygame.draw.circle(self.screen, self.ball_color, (self.pos_x, self.pos_y), self.radius)
+    
+    def move(self, speed, direction):
+        pass
