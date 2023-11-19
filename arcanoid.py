@@ -12,10 +12,12 @@ clock = pygame.time.Clock()
 
 paddle = Paddle(screen,300,450, 70, 10)
 ball = Ball(screen, 350,250, 8, 5, 5)
-brick = Brick(screen,500,400, 80, 25)
 
 bricks = []
-bricks.append(brick)
+for x in range(6):
+    for y in range(3): 
+        brick = Brick(screen, 90 * (x+1), 50* (y+1), 60, 20)
+        bricks.append(brick)
 
 while True:
     for event in pygame.event.get():
@@ -34,7 +36,7 @@ while True:
 
     paddle.draw()
     ball.draw()
-    brick.draw()
+    for brick in bricks: brick.draw()
 
     pygame.display.update()
     clock.tick(60)

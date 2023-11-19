@@ -1,6 +1,6 @@
 import pygame
 class Brick():
-    def __init__(self, screen, pos_x, pos_y, width, height, color=(255, 255, 255)):
+    def __init__(self, screen, pos_x, pos_y, width, height, color=(255, 100, 255)):
         self.screen = screen
         self.pos_x = pos_x
         self.pos_y = pos_y
