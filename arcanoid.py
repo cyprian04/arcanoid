@@ -10,16 +10,8 @@ pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
 
 paddle = Paddle(screen,300,450, 70, 10)
-paddle_speed = 5
 
 ball = Ball(screen, 350,250, 8, 5, 5)
-
-
-def paddle_movement(keys):
-    if keys[pygame.K_RIGHT]:
-        paddle.move(5)
-    elif keys[pygame.K_LEFT]:
-        paddle.move(-5)
 
 while True:
     for event in pygame.event.get():
@@ -31,8 +23,7 @@ while True:
 
     ball.check_wall_collision(window_width, window_height)
     ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height)
-    keys = pygame.key.get_pressed()
-    paddle_movement(keys)
+    paddle.move(pygame.key.get_pressed())
 
     paddle.draw()
     ball.draw()
