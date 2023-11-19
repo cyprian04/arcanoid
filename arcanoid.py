@@ -14,6 +14,9 @@ paddle = Paddle(screen,300,450, 70, 10)
 ball = Ball(screen, 350,250, 8, 5, 5)
 brick = Brick(screen,500,400, 80, 25)
 
+bricks = []
+bricks.append(brick)
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -24,6 +27,7 @@ while True:
 
     ball.check_wall_collision(window_width, window_height)
     ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height)
+    ball.check_brick_collision(bricks)
 
     ball.move()
     paddle.move(pygame.key.get_pressed())

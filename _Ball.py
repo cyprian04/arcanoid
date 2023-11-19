@@ -41,4 +41,24 @@ class Ball():
 
         if x_collision and y_collision and self.vel_y > 0:
             self.vel_y = -self.vel_y
-        
+
+    def check_brick_collision(self, bricks):
+        for brick in bricks:
+            if (
+                brick.is_visible
+                and self.pos_y + self.radius >= brick.pos_y
+                and self.pos_y - self.radius <= brick.pos_y + brick.height
+                and self.pos_x + self.radius >= brick.pos_x
+                and self.pos_x - self.radius <= brick.pos_x + brick.width
+            ):
+                left_side = self.pos_x <= brick.pos_x
+                right_side = self.pos_x >= brick.pos_x + brick.width
+                top_side = self.pos_y <= brick.pos_y
+                bottom_side = self.pos_y >= brick.pos_y + brick.height
+
+                if left_side or right_side:
+                    self.vel_x = -self.vel_x
+                if top_side or bottom_side:
+                    self.vel_y = -self.vel_y
+
+                brick.hide()
