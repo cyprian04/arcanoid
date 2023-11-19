@@ -18,26 +18,40 @@ for x in range(6):
     for y in range(3): 
         bricks.append(Brick(screen, 90 * (x+1), 50* (y+1), 50, 20))
 
-lives = []
+lifes = []
 radius = 8
 gap = 10
 for x in range(3):
     xpos = window_width - (x + 1) * (radius * 2 + gap)
     ypos = window_height - radius - gap
-    lives.append(Ball(screen, xpos, ypos, radius, 0,0, (255,0,0)))
+    lifes.append(Ball(screen, xpos, ypos, radius, 0,0, (255,0,0)))
 
 unbreakable_bricks = []
 for x in range(6): unbreakable_bricks.append(Brick(screen, 90 * (x+1), 200, 50, 20, (100,100,100)))
+
+def is_game_over(screen, lifes):
+    if len(lifes) == 0:
+        screen.fill((0,0,0))
+        font = pygame.font.Font(None, 36)
+        game_over_text = font.render("Game Over!", True, (255, 255, 255))
+        screen.blit(game_over_text, (window_width // 2 - game_over_text.get_width() // 2, window_height // 2 - game_over_text.get_height() // 2))
+        pygame.display.update()
+        pygame.time.delay(2000)
+        return True
+    return False
+
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        
+    if is_game_over(screen, lifes): break
 
     screen.fill((0,0,0))
 
-    ball.check_wall_collision(window_width, window_height, lives)
+    ball.check_wall_collision(window_width, window_height, lifes)
     ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height)
     ball.check_brick_collision(bricks)
     ball.check_brick_collision(unbreakable_bricks, "unbreakable")
@@ -47,7 +61,7 @@ while True:
 
     paddle.draw()
     ball.draw()
-    for live in lives: live.draw()
+    for life in lifes: life.draw()
     for brick in bricks: brick.draw()
     for u_brick in unbreakable_bricks: u_brick.draw()
 
