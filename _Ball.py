@@ -19,8 +19,13 @@ class Ball():
         self.pos_x += x_vel
         self.pos_y += y_vel
     
+    def check_paddle_collision(self, paddle_x, paddle_y, paddle_width, paddle_height):
+        if ( paddle_x < self.pos_x + self.radius < paddle_x + paddle_width
+            and paddle_y < self.pos_y + self.radius < paddle_y + paddle_height 
+        ):
+            self.vel_y = -self.vel_y
 
-    def check_collision(self, width, height):
+    def check_wall_collision(self, width, height):
         if self.pos_x - self.radius < 0 or self.pos_x + self.radius > width:
             self.vel_x = -self.vel_x
 
