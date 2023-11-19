@@ -12,8 +12,7 @@ clock = pygame.time.Clock()
 paddle = Paddle(screen,300,450, 70, 10)
 paddle_speed = 5
 
-ball = Ball(screen, 350,250, 8)
-ball_speed = 5
+ball = Ball(screen, 350,250, 8, 5, 5)
 
 
 def paddle_movement(keys):
@@ -32,8 +31,9 @@ while True:
 
     keys = pygame.key.get_pressed()
     paddle_movement(keys)
+    ball.check_collision()
+
     paddle.draw()
-    
     ball.draw()
 
     pygame.display.update()
