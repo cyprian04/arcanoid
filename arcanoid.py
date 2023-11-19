@@ -37,7 +37,7 @@ while True:
 
     screen.fill((0,0,0))
 
-    ball.check_wall_collision(window_width, window_height)
+    ball.check_wall_collision(window_width, window_height, lives)
     ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height)
     ball.check_brick_collision(bricks)
     ball.check_brick_collision(unbreakable_bricks, "unbreakable")
