@@ -16,8 +16,10 @@ ball = Ball(screen, 350,250, 8, 5, 5)
 bricks = []
 for x in range(6):
     for y in range(3): 
-        brick = Brick(screen, 90 * (x+1), 50* (y+1), 60, 20)
-        bricks.append(brick)
+        bricks.append(Brick(screen, 90 * (x+1), 50* (y+1), 50, 20))
+
+unbreakable_bricks = []
+for x in range(6): unbreakable_bricks.append(Brick(screen, 90 * (x+1), 200, 50, 20, (100,100,100)))
 
 while True:
     for event in pygame.event.get():
@@ -30,6 +32,7 @@ while True:
     ball.check_wall_collision(window_width, window_height)
     ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height)
     ball.check_brick_collision(bricks)
+    ball.check_brick_collision(unbreakable_bricks, "unbreakable")
 
     ball.move()
     paddle.move(pygame.key.get_pressed())
@@ -37,6 +40,7 @@ while True:
     paddle.draw()
     ball.draw()
     for brick in bricks: brick.draw()
+    for u_brick in unbreakable_bricks: u_brick.draw()
 
     pygame.display.update()
     clock.tick(60)

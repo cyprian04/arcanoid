@@ -42,7 +42,7 @@ class Ball():
         if x_collision and y_collision and self.vel_y > 0:
             self.vel_y = -self.vel_y
 
-    def check_brick_collision(self, bricks):
+    def check_brick_collision(self, bricks, type="breakable"):
         for brick in bricks:
             if (
                 brick.is_visible
@@ -61,4 +61,4 @@ class Ball():
                 if top_side or bottom_side:
                     self.vel_y = -self.vel_y
 
-                brick.hide()
+                if type == "breakable": brick.hide()
