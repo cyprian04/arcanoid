@@ -11,6 +11,8 @@ window_width, window_height = 700, 500
 screen = pygame.display.set_mode((window_width, window_height))
 background_image = pygame.image.load("menuBackground.png")
 background_image = pygame.transform.scale(background_image, (window_width, window_height))
+game_background_image = pygame.image.load("gameBackground.jpg")
+game_background_image = pygame.transform.scale(game_background_image, (window_width, window_height))
 pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 36)
@@ -127,7 +129,7 @@ def game_loop(screen):
         lifes.append(Ball(screen, xpos, ypos, radius, 0,0, (255,0,0)))
 
     unbreakable_bricks = []
-    for x in range(6): unbreakable_bricks.append(Brick(screen, 90 * (x+1), 200, 50, 20, (100,100,100)))
+    for x in range(6): unbreakable_bricks.append(Brick(screen, 90 * (x+1), 200, 50, 20, (255, 212, 5)))
 
     while True:
         for event in pygame.event.get():
@@ -137,7 +139,8 @@ def game_loop(screen):
         
         if is_game_over(screen, lifes): break
 
-        screen.fill((0,0,0))
+        screen.blit(game_background_image, (0, 0))
+
 
         ball.check_wall_collision(window_width, window_height, lifes)
         if ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height):
