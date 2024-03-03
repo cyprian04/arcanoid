@@ -77,6 +77,12 @@ def main_menu(screen, WIDTH, HEIGHT):
 
         clock.tick(60)
 
+def get_ready(screen):
+    screen.fill((0,0,0))
+    draw_text("Get Ready!",font, (200, 100, 155), window_width // 2, window_height // 2 ,screen)
+    pygame.display.update()
+    pygame.time.delay(2000)
+
 def is_game_over(screen, lifes):
     if len(lifes) == 0:
         screen.fill((0,0,0))
@@ -87,6 +93,8 @@ def is_game_over(screen, lifes):
     return False
 
 def game_loop(screen):
+    get_ready(screen)
+
     paddle = Paddle(screen,250,450, 70, 10)
 
     while True:
@@ -94,7 +102,6 @@ def game_loop(screen):
         start_ball_vel_y = random.randint(-5,5)
         if start_ball_vel_x and start_ball_vel_y != 0:
             break
-
     ball = Ball(screen, 350,250, 8, start_ball_vel_x, start_ball_vel_y)
 
     bricks = []
@@ -113,7 +120,6 @@ def game_loop(screen):
     unbreakable_bricks = []
     for x in range(6): unbreakable_bricks.append(Brick(screen, 90 * (x+1), 200, 50, 20, (100,100,100)))
 
-    # draw_text("READY!",font,(200,200,200),)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
