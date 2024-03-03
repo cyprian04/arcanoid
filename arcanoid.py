@@ -16,10 +16,13 @@ clock = pygame.time.Clock()
 font = pygame.font.Font(None, 36)
 
 vlc_instance = vlc.Instance("--no-xlib")
-soundtrack = vlc_instance.media_new("menuSong.mp3")
-soundtrack_player = vlc_instance.media_player_new()
-soundtrack_player.set_fullscreen(True)  
-soundtrack_player.set_media(soundtrack)
+
+def play_sound(file_path):
+    player = vlc_instance.media_player_new()
+    media = vlc_instance.media_new(file_path)
+    player.set_media(media)
+    player.play()
+    return player
 
 def draw_text(text, font, color, x, y, surface):
     text_surface = font.render(text, True, color)
@@ -42,20 +45,20 @@ def create_button(rect, color, hover_color, text, text_color):
     return button_surface, is_hover
 
 def main_menu(screen, WIDTH, HEIGHT):
+    menu_song_player = play_sound("menuSong.mp3")
     while True:
-        if soundtrack_player.is_playing() == False:
-            soundtrack_player.play()
+        if menu_song_player.is_playing() == False:
+            menu_song_player.play()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button_rect.collidepoint(pygame.mouse.get_pos()):
-                    soundtrack_player.stop()
+                    menu_song_player.stop()
                     game_loop(screen)
-                    break;
                 elif quit_button_rect.collidepoint(pygame.mouse.get_pos()):
-                    soundtrack_player.stop()
+                    menu_song_player.stop()
                     pygame.quit()
                     sys.exit()
 
@@ -77,15 +80,13 @@ def main_menu(screen, WIDTH, HEIGHT):
 def is_game_over(screen, lifes):
     if len(lifes) == 0:
         screen.fill((0,0,0))
-        game_over_text = font.render("Game Over!", True, (255, 255, 255))
-        screen.blit(game_over_text, (window_width // 2 - game_over_text.get_width() // 2, window_height // 2 - game_over_text.get_height() // 2))
+        draw_text("Game Over!",font, (255, 255, 255), window_width // 2, window_height // 2 ,screen)
         pygame.display.update()
         pygame.time.delay(2000)
         return True
     return False
 
 def game_loop(screen):
-
     paddle = Paddle(screen,250,450, 70, 10)
 
     while True:
@@ -112,6 +113,7 @@ def game_loop(screen):
     unbreakable_bricks = []
     for x in range(6): unbreakable_bricks.append(Brick(screen, 90 * (x+1), 200, 50, 20, (100,100,100)))
 
+    # draw_text("READY!",font,(200,200,200),)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -140,7 +142,6 @@ def game_loop(screen):
         clock.tick(60)
     
 if __name__ == "__main__":
-    while True:
-        main_menu(screen,window_width, window_height)
+    main_menu(screen,window_width, window_height)
 
     
