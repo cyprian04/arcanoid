@@ -2,16 +2,21 @@ import pygame
 import random
 import sys
 import vlc
+import os
 from _Paddle import Paddle
 from _Ball import Ball
 from _Bricks import Brick
 
 pygame.init()
 window_width, window_height = 700, 500
+script_dir = os.path.dirname(os.path.abspath(__file__))
+sounds_dir = os.path.join(script_dir, "sounds")
+images_dir = os.path.join(script_dir, "images")
+
 screen = pygame.display.set_mode((window_width, window_height))
-background_image = pygame.image.load("menuBackground.png")
+background_image = pygame.image.load(sounds_dir + '\menuBackground.png')
 background_image = pygame.transform.scale(background_image, (window_width, window_height))
-game_background_image = pygame.image.load("gameBackground.jpg")
+game_background_image = pygame.image.load("images/gameBackground.jpg")
 game_background_image = pygame.transform.scale(game_background_image, (window_width, window_height))
 pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
@@ -47,7 +52,7 @@ def create_button(rect, color, hover_color, text, text_color):
     return button_surface, is_hover
 
 def main_menu(screen, WIDTH, HEIGHT):
-    menu_song_player = play_sound("menuSong.mp3")
+    menu_song_player = play_sound("songs\\menuSong.mp3")
     while True:
         if menu_song_player.is_playing() == False:
             menu_song_player.play()
