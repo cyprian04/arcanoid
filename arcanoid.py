@@ -40,7 +40,6 @@ def is_game_over(screen, lifes):
         return True
     return False
 
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
