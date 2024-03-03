@@ -25,3 +25,13 @@ The goal is to break all the bricks without losing all your lives.
 
    ```bash
    git clone https://github.com/cyprian04/Arcanoid-Python.git
+2. **Open the IDE and run the arcanoid.py file from game folder directory**
+
+## MORE INFORMATIONS
+For more detailed information, refer to the [Documentation](https://github.com/cyprian04/Arcanoid-Python/blob/main/Documentation.md).
+
+## License
+This project is licensed under the MIT License. Feel free to use, modify, and distribute the code for your own projects.
+
+## Credits
+Game developed by Cyprian04, Inspired by the classic Arcanoid arcade game.
