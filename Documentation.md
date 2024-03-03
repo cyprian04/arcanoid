@@ -19,6 +19,7 @@ Before you can play the Arcanoid game, ensure that you have the following prereq
   - [python-vlc](https://pypi.org/project/python-vlc/) (Version 3.0.20123): Install using `pip install python-vlc`.
   - [sys](https://docs.python.org/3/library/sys.html) (Version 3.11.0): No separate installation required; it's a built-in module.
   - [random](https://docs.python.org/3/library/random.html) (Version 1.0.2): No separate installation required; it's a built-in module.
+  - [os](https://docs.python.org/3/library/os.html) No separate installation required; it's a built-in module.
 
 ## Setting Up the Game
 
