@@ -46,7 +46,6 @@ class Ball():
 
         if x_collision and y_collision and self.vel_y > 0:
             self.vel_y = -self.vel_y
-            self.vel_x = random.randint(-5,5)
 
     def check_brick_collision(self, bricks, type="breakable"):
         for brick in bricks:
@@ -57,14 +56,17 @@ class Ball():
                 and self.pos_x + self.radius >= brick.pos_x
                 and self.pos_x - self.radius <= brick.pos_x + brick.width
             ):
-                left_side = self.pos_x <= brick.pos_x
+                left_side  = self.pos_x <= brick.pos_x
                 right_side = self.pos_x >= brick.pos_x + brick.width
-                top_side = self.pos_y <= brick.pos_y
-                bottom_side = self.pos_y >= brick.pos_y + brick.height
+                top_side   = self.pos_y <= brick.pos_y
+                bottom_side= self.pos_y >= brick.pos_y + brick.height
 
-                if left_side or right_side:
-                    self.vel_x = -self.vel_x
-                if top_side or bottom_side:
-                    self.vel_y = -self.vel_y
-
+                if left_side:
+                    self.vel_x = random.randint(-5,-2)
+                if right_side:
+                    self.vel_x = random.randint(2,5)
+                if top_side:
+                    self.vel_y = random.randint(-5,-2)
+                if bottom_side:
+                    self.vel_y = random.randint(2,5)
                 if type == "breakable": brick.hide()

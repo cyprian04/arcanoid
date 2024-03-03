@@ -1,4 +1,5 @@
 import pygame
+import random
 import sys
 from _Paddle import Paddle
 from _Ball import Ball
@@ -11,7 +12,14 @@ pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
 
 paddle = Paddle(screen,250,450, 70, 10)
-ball = Ball(screen, 350,250, 8, 5, 5)
+
+while True:
+    start_ball_vel_x = random.randint(-5,5)
+    start_ball_vel_y = random.randint(-5,5)
+    if start_ball_vel_x and start_ball_vel_y != 0:
+        break
+
+ball = Ball(screen, 350,250, 8, start_ball_vel_x, start_ball_vel_y)
 
 bricks = []
 for x in range(6):
