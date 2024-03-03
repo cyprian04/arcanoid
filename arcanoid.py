@@ -8,6 +8,9 @@ from _Bricks import Brick
 pygame.init()
 window_width, window_height = 700, 500
 screen = pygame.display.set_mode((window_width, window_height))
+background_image = pygame.image.load("menuBackground.png")
+background_image = pygame.transform.scale(background_image, (window_width, window_height))
+
 pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 36)
@@ -16,7 +19,6 @@ def draw_text(text, font, color, x, y, surface):
     text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect(center=(x, y))
     surface.blit(text_surface, text_rect)
-
 
 def create_button(rect, color, hover_color, text, text_color):
     button_surface = pygame.Surface((rect.width, rect.height))
@@ -47,24 +49,19 @@ def main_menu(screen, WIDTH, HEIGHT):
                     pygame.quit()
                     sys.exit()
 
-        # Draw background
-        screen.fill((100,100,100))
+        screen.blit(background_image, (0, 0))
 
-        # Create buttons
         play_button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 50, 200, 50)
         quit_button_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 20, 200, 50)
 
         play_button, play_hover = create_button(play_button_rect, (0, 128, 255), (0, 100, 200), "Play", (255,255,255))
         quit_button, quit_hover = create_button(quit_button_rect, (255, 0, 0), (200, 0, 0), "Quit", (255,255,255))
 
-        # Draw buttons on the screen
         screen.blit(play_button, play_button_rect.topleft)
         screen.blit(quit_button, quit_button_rect.topleft)
 
-        # Update display
         pygame.display.flip()
 
-        # Cap the frame rate
         clock.tick(60)
 
 def is_game_over(screen, lifes):
