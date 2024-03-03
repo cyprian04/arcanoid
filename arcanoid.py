@@ -83,6 +83,12 @@ def get_ready(screen):
     pygame.display.update()
     pygame.time.delay(2000)
 
+def game_is_won():
+    screen.fill((0,0,0))
+    draw_text("WIINNN!",font, (55, 155, 100), window_width // 2, window_height // 2 ,screen)
+    pygame.display.update()
+    pygame.time.delay(2000)
+
 def is_game_over(screen, lifes):
     if len(lifes) == 0:
         screen.fill((0,0,0))
@@ -100,11 +106,12 @@ def game_loop(screen):
     while True:
         start_ball_vel_x = random.randint(-5,5)
         start_ball_vel_y = random.randint(-5,5)
-        if start_ball_vel_x and start_ball_vel_y != 0:
-            break
+        if start_ball_vel_x and start_ball_vel_y != 0: break
+
     ball = Ball(screen, 350,250, 8, start_ball_vel_x, start_ball_vel_y)
 
     bricks = []
+    bricks_num = 18
     for x in range(6):
         for y in range(3): 
             bricks.append(Brick(screen, 90 * (x+1), 50* (y+1), 50, 20))
@@ -141,9 +148,16 @@ def game_loop(screen):
         paddle.draw()
         ball.draw()
         for life in lifes: life.draw()
-        for brick in bricks: brick.draw()
+
+        destroyed_bricks_counter = 0
+        for brick in bricks: 
+            brick.draw()
+            if brick.Is_visible() == False: destroyed_bricks_counter+=1
         for u_brick in unbreakable_bricks: u_brick.draw()
 
+        if destroyed_bricks_counter == bricks_num: 
+            game_is_won() 
+            break
         pygame.display.update()
         clock.tick(60)
     
