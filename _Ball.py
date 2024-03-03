@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Ball():
     def __init__(self, screen, pos_x, pos_y, radius, vel_x=0, vel_y=0, color=(50,100,250)):
@@ -45,6 +46,7 @@ class Ball():
 
         if x_collision and y_collision and self.vel_y > 0:
             self.vel_y = -self.vel_y
+            self.vel_x = random.randint(-5,5)
 
     def check_brick_collision(self, bricks, type="breakable"):
         for brick in bricks:
