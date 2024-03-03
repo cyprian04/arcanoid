@@ -87,6 +87,7 @@ def game_is_won():
     screen.fill((0,0,0))
     draw_text("WIINNN!",font, (55, 155, 100), window_width // 2, window_height // 2 ,screen)
     pygame.display.update()
+    play_sound("winSound.wav")
     pygame.time.delay(2000)
 
 def is_game_over(screen, lifes):
@@ -94,6 +95,7 @@ def is_game_over(screen, lifes):
         screen.fill((0,0,0))
         draw_text("Game Over!",font, (255, 255, 255), window_width // 2, window_height // 2 ,screen)
         pygame.display.update()
+        play_sound("gameOverSound.wav")
         pygame.time.delay(2000)
         return True
     return False
@@ -138,9 +140,12 @@ def game_loop(screen):
         screen.fill((0,0,0))
 
         ball.check_wall_collision(window_width, window_height, lifes)
-        ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height)
-        ball.check_brick_collision(bricks)
-        ball.check_brick_collision(unbreakable_bricks, "unbreakable")
+        if ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height):
+            play_sound("arkpad.wav")
+        if ball.check_brick_collision(bricks):
+            play_sound("arkbrick.wav")
+        if ball.check_brick_collision(unbreakable_bricks, "unbreakable"):
+            play_sound("arkbrick.wav")
 
         ball.move()
         paddle.move(pygame.key.get_pressed())
