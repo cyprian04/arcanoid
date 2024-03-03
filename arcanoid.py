@@ -2,6 +2,7 @@ import pygame
 import random
 import sys
 import vlc
+import os
 from _Paddle import Paddle
 from _Ball import Ball
 from _Bricks import Brick
@@ -9,9 +10,12 @@ from _Bricks import Brick
 pygame.init()
 window_width, window_height = 700, 500
 screen = pygame.display.set_mode((window_width, window_height))
-background_image = pygame.image.load("menuBackground.png")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+sounds_dir = os.path.join(script_dir, "sounds")
+images_dir = os.path.join(script_dir, "images")
+background_image = pygame.image.load(images_dir + "\menuBackground.png")
 background_image = pygame.transform.scale(background_image, (window_width, window_height))
-game_background_image = pygame.image.load("gameBackground.jpg")
+game_background_image = pygame.image.load(images_dir + "\gameBackground.jpg")
 game_background_image = pygame.transform.scale(game_background_image, (window_width, window_height))
 pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
@@ -47,7 +51,7 @@ def create_button(rect, color, hover_color, text, text_color):
     return button_surface, is_hover
 
 def main_menu(screen, WIDTH, HEIGHT):
-    menu_song_player = play_sound("menuSong.mp3")
+    menu_song_player = play_sound(sounds_dir +"\menuSong.mp3")
     while True:
         if menu_song_player.is_playing() == False:
             menu_song_player.play()
@@ -89,7 +93,7 @@ def game_is_won():
     screen.fill((0,0,0))
     draw_text("WIINNN!",font, (55, 155, 100), window_width // 2, window_height // 2 ,screen)
     pygame.display.update()
-    play_sound("winSound.wav")
+    play_sound(sounds_dir + "\winSound.wav")
     pygame.time.delay(2000)
 
 def is_game_over(screen, lifes):
@@ -97,7 +101,7 @@ def is_game_over(screen, lifes):
         screen.fill((0,0,0))
         draw_text("Game Over!",font, (255, 255, 255), window_width // 2, window_height // 2 ,screen)
         pygame.display.update()
-        play_sound("gameOverSound.wav")
+        play_sound(sounds_dir + "\gameOverSound.wav")
         pygame.time.delay(2000)
         return True
     return False
@@ -144,11 +148,11 @@ def game_loop(screen):
 
         ball.check_wall_collision(window_width, window_height, lifes)
         if ball.check_paddle_collision(paddle.pos_x, paddle.pos_y, paddle.width, paddle.height):
-            play_sound("arkpad.wav")
+            play_sound(sounds_dir + r'/arkpad.wav')
         if ball.check_brick_collision(bricks):
-            play_sound("arkbrick.wav")
+            play_sound(sounds_dir + r'/arkbrick.wav')
         if ball.check_brick_collision(unbreakable_bricks, "unbreakable"):
-            play_sound("arkbrick.wav")
+            play_sound(sounds_dir + r'/arkbrick.wav')
 
         ball.move()
         paddle.move(pygame.key.get_pressed())
