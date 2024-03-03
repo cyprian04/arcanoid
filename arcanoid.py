@@ -24,6 +24,9 @@ font = pygame.font.Font(None, 36)
 vlc_instance = vlc.Instance("--no-xlib")
 
 def play_sound(file_path):
+    """
+    Function Responsible for playing sound from passed file_path as parameter via vlc module
+    """
     player = vlc_instance.media_player_new()
     media = vlc_instance.media_new(file_path)
     player.set_media(media)
@@ -31,11 +34,17 @@ def play_sound(file_path):
     return player
 
 def draw_text(text, font, color, x, y, surface):
+    """
+    Function which draws text on a certian surface with specified parameters
+    """
     text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect(center=(x, y))
     surface.blit(text_surface, text_rect)
 
 def create_button(rect, color, hover_color, text, text_color):
+    """
+    Function responsible for creating buttons in specified position, surface and  with specified color and text
+    """
     button_surface = pygame.Surface((rect.width, rect.height))
     button_surface.fill(color)
     pygame.draw.rect(button_surface, (0, 0, 0), rect, 2)
@@ -51,6 +60,9 @@ def create_button(rect, color, hover_color, text, text_color):
     return button_surface, is_hover
 
 def main_menu(screen, WIDTH, HEIGHT):
+    """
+    Function which creates whole start menu in game and is responsible for running game loop
+    """
     menu_song_player = play_sound(sounds_dir +"\menuSong.mp3")
     while True:
         if menu_song_player.is_playing() == False:
@@ -84,12 +96,18 @@ def main_menu(screen, WIDTH, HEIGHT):
         clock.tick(60)
 
 def get_ready(screen):
+    """
+    Function which tells player to get ready by displaying text and changing screen background
+    """
     screen.fill((0,0,0))
     draw_text("Get Ready!",font, (200, 100, 155), window_width // 2, window_height // 2 ,screen)
     pygame.display.update()
     pygame.time.delay(2000)
 
 def game_is_won():
+    """
+    Function which is executed when a player has broken all the bricks so he won
+    """
     screen.fill((0,0,0))
     draw_text("WIINNN!",font, (55, 155, 100), window_width // 2, window_height // 2 ,screen)
     pygame.display.update()
@@ -97,6 +115,9 @@ def game_is_won():
     pygame.time.delay(2000)
 
 def is_game_over(screen, lifes):
+    """
+    Function which checks if player lost the game by losing all the remaining lives
+    """
     if len(lifes) == 0:
         screen.fill((0,0,0))
         draw_text("Game Over!",font, (255, 255, 255), window_width // 2, window_height // 2 ,screen)
@@ -107,6 +128,10 @@ def is_game_over(screen, lifes):
     return False
 
 def game_loop(screen):
+    """
+    Function responsible for creating all in game objects 
+    and game loop in which all the logic is executed from other files as well 
+    """
     get_ready(screen)
 
     paddle = Paddle(screen,250,450, 70, 10)

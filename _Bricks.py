@@ -10,6 +10,9 @@ class Brick():
         self.is_visible = True
     
     def draw(self):
+        """
+        Function which draws bricks rect in specified position
+        """
         if self.is_visible:
             pygame.draw.rect(self.screen, self.color, (self.pos_x, self.pos_y, self.width, self.height))
             return False

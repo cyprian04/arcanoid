@@ -14,13 +14,22 @@ class Ball():
         self.move()
 
     def draw(self):
+        """
+        Function which draws ball on the screen
+        """
         pygame.draw.circle(self.screen, self.ball_color, (self.pos_x, self.pos_y), self.radius)
     
     def move(self):
+        """
+        Function which updates the ball velocity
+        """
         self.pos_x += self.vel_x
         self.pos_y += self.vel_y
     
     def check_wall_collision(self, width, height, lifes):
+        """
+        Function which checks if ball touches the wall, and if so, then reverse the ball velocity so it bounce off
+        """
         if self.pos_x - self.radius < 0 or self.pos_x + self.radius > width:
             self.vel_x = -self.vel_x
 
@@ -32,6 +41,10 @@ class Ball():
             lifes.pop()
 
     def check_paddle_collision(self, paddle_x, paddle_y, paddle_width, paddle_height):
+        """
+        Function which checks if ball touches the paddle topsite, if so, 
+        then returns and reverse its velocity, otherwise return false
+        """
         prev_pos_x = self.pos_x - self.vel_x
         prev_pos_y = self.pos_y - self.vel_y
 
@@ -50,6 +63,10 @@ class Ball():
         return False;
 
     def check_brick_collision(self, bricks, type="breakable"):
+        """
+        Function which checks if ball touches the brick, if so, then returns TRUE and overrides the velocity
+        with random generated (reversed) velocity in specified range, otherwise returns False
+        """
         for brick in bricks:
             if (
                 brick.is_visible
