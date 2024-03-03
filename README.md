@@ -27,7 +27,7 @@ The goal is to break all the bricks without losing all your lives.
    git clone https://github.com/cyprian04/Arcanoid-Python.git
 2. **Open the IDE and run the arcanoid.py file from game folder directory**
 
-## MORE INFORMATIONS
+## MORE INFORMATIONS AND GAME REQUIREMENTS
 For more detailed information, refer to the [Documentation](https://github.com/cyprian04/Arcanoid-Python/blob/main/Documentation.md).
 
 ## License
