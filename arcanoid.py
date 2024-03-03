@@ -1,6 +1,7 @@
 import pygame
 import random
 import sys
+import vlc
 from _Paddle import Paddle
 from _Ball import Ball
 from _Bricks import Brick
@@ -10,10 +11,15 @@ window_width, window_height = 700, 500
 screen = pygame.display.set_mode((window_width, window_height))
 background_image = pygame.image.load("menuBackground.png")
 background_image = pygame.transform.scale(background_image, (window_width, window_height))
-
 pygame.display.set_caption("Cyprian's Arkanoid")
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 36)
+
+vlc_instance = vlc.Instance("--no-xlib")
+soundtrack = vlc_instance.media_new("menuSong.mp3")
+soundtrack_player = vlc_instance.media_player_new()
+soundtrack_player.set_fullscreen(True)  
+soundtrack_player.set_media(soundtrack)
 
 def draw_text(text, font, color, x, y, surface):
     text_surface = font.render(text, True, color)
@@ -35,17 +41,21 @@ def create_button(rect, color, hover_color, text, text_color):
 
     return button_surface, is_hover
 
-
 def main_menu(screen, WIDTH, HEIGHT):
     while True:
+        if soundtrack_player.is_playing() == False:
+            soundtrack_player.play()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button_rect.collidepoint(pygame.mouse.get_pos()):
+                    soundtrack_player.stop()
                     game_loop(screen)
+                    break;
                 elif quit_button_rect.collidepoint(pygame.mouse.get_pos()):
+                    soundtrack_player.stop()
                     pygame.quit()
                     sys.exit()
 
@@ -130,6 +140,7 @@ def game_loop(screen):
         clock.tick(60)
     
 if __name__ == "__main__":
-    main_menu(screen,window_width, window_height)
+    while True:
+        main_menu(screen,window_width, window_height)
 
     
